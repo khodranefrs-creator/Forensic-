@@ -1,114 +1,126 @@
 import { ArrowUp, ArrowUpRight, Play } from "lucide-react";
+import { ClarityMark } from "@/components/clarity-mark";
 import { Logo } from "@/components/logo";
 import { navItems, site } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-[#061a24] text-paper">
-      <div className="shell pb-8 pt-14 lg:pt-16">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
-            <a
-              href="#home"
-              className="inline-block bg-cream p-5 outline-offset-4"
-              aria-label="The Forensic Neuroscientist — back to top"
-            >
-              <Logo sizes="240px" className="h-auto w-[13rem]" />
-            </a>
-            <p className="mt-6 max-w-[27ch] font-display text-[clamp(1.45rem,1.2rem+0.7vw,1.8rem)] italic leading-[1.3] tracking-[-0.02em] text-paper/90">
-              Science, evidence, and human understanding — connected.
-            </p>
-            <p className="mt-4 max-w-[34ch] text-[0.82rem] leading-relaxed text-paper/65">
-              An education, training, and consultation practice making complex
-              neuroscience accessible, relevant, and useful.
-            </p>
-          </div>
+    <footer className="site-footer nav:pl-[var(--rail-width)]">
+      <div className="footer-orbit" aria-hidden="true">
+        <svg viewBox="0 0 600 600" className="h-full w-full" fill="none">
+          <circle
+            cx="300"
+            cy="300"
+            r="298"
+            stroke="#07212E"
+            strokeOpacity="0.12"
+            strokeWidth="0.8"
+          />
+          <circle
+            cx="300"
+            cy="300"
+            r="250"
+            stroke="#0B709D"
+            strokeOpacity="0.2"
+            strokeWidth="0.8"
+          />
+          <circle
+            cx="300"
+            cy="300"
+            r="204"
+            stroke="#07212E"
+            strokeOpacity="0.1"
+            strokeWidth="0.7"
+            strokeDasharray="1 8"
+          />
+          <circle
+            cx="300"
+            cy="300"
+            r="120"
+            stroke="#9A5700"
+            strokeOpacity="0.22"
+            strokeWidth="0.8"
+          />
+          <circle cx="300" cy="52" r="4" fill="#F4940E" />
+        </svg>
+      </div>
 
-          <div className="lg:col-span-3 lg:col-start-7">
-            <p className="font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-paper/60">
-              Explore
-            </p>
-            <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5">
+      <div className="shell relative z-10">
+        <div className="footer-top">
+          <a
+            href="#home"
+            className="footer-logo"
+            aria-label="The Forensic Neuroscientist — back to top"
+          >
+            <Logo sizes="280px" className="h-auto w-full" />
+          </a>
+          <p className="footer-mark">
+            <ClarityMark size={16} />
+            Signal / Clarity
+          </p>
+        </div>
+
+        <p className="footer-statement">
+          The intersection of science, evidence &amp;{" "}
+          <em>human understanding.</em>
+        </p>
+
+        <div className="footer-grid">
+          <div>
+            <p className="footer-col-title">Explore</p>
+            <nav className="footer-nav" aria-label="Footer navigation">
               {navItems.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="text-[0.82rem] text-paper/65 transition-colors hover:text-paper"
-                  >
-                    {item.label}
-                  </a>
-                </li>
+                <a key={item.id} href={`#${item.id}`}>
+                  {item.label}
+                </a>
               ))}
-            </ul>
+            </nav>
           </div>
 
-          <div className="lg:col-span-3">
-            <p className="font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-paper/60">
-              Connect
-            </p>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <a
-                  href={site.youtube.channelUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="group inline-flex items-center gap-2.5 text-[0.82rem] text-paper/65 transition-colors hover:text-paper"
-                >
-                  <Play size={11} strokeWidth={1.8} aria-hidden="true" />
-                  YouTube channel
-                  <ArrowUpRight
-                    size={12}
-                    strokeWidth={1.8}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="group inline-flex items-center gap-2.5 text-[0.82rem] text-paper/65 transition-colors hover:text-paper"
-                >
-                  Get in touch
-                  <ArrowUpRight
-                    size={12}
-                    strokeWidth={1.8}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#education"
-                  className="text-[0.82rem] text-paper/65 transition-colors hover:text-paper"
-                >
-                  Education &amp; training
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#consultation"
-                  className="text-[0.82rem] text-paper/65 transition-colors hover:text-paper"
-                >
-                  Consultation
-                </a>
-              </li>
-            </ul>
+          <div>
+            <p className="footer-col-title">Connect</p>
+            <div className="footer-connect">
+              <a
+                href={site.youtube.channelUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Play size={11} strokeWidth={1.8} aria-hidden="true" />
+                YouTube channel
+                <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a href="#contact">
+                Get in touch
+                <ArrowUpRight size={12} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a href="#education">
+                Education &amp; training
+              </a>
+              <a href="#consultation">Consultation</a>
+            </div>
+          </div>
 
-            <a
-              href="#home"
-              className="mt-8 inline-flex items-center gap-2 border border-paper/20 px-3.5 py-2 font-mono text-[0.5rem] uppercase tracking-[0.14em] text-paper/70 transition-colors hover:border-paper/60 hover:text-paper"
-            >
-              <ArrowUp size={11} strokeWidth={1.8} aria-hidden="true" />
+          <div>
+            <p className="footer-col-title">The practice</p>
+            <p className="footer-note">
+              An education, training and consultation practice making complex
+              neuroscience accessible, relevant and useful.
+            </p>
+            <a href="#home" className="footer-back">
+              <ArrowUp size={12} strokeWidth={1.8} aria-hidden="true" />
               Back to top
             </a>
           </div>
         </div>
+      </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-paper/12 pt-5 text-[0.65rem] text-paper/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} The Forensic Neuroscientist. All rights reserved.</p>
-          <p className="font-mono text-[0.5rem] uppercase tracking-[0.14em]">
+      <div className="footer-bar">
+        <div className="shell footer-bar__inner">
+          <p>
+            © {new Date().getFullYear()} The Forensic Neuroscientist. All rights
+            reserved.
+          </p>
+          <p className="footer-bar__mark">
             Neuroscience / Forensic science / Human understanding
           </p>
         </div>

@@ -157,25 +157,33 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="relative border border-paper/20 bg-cream p-6 text-ink sm:p-8"
+      className="relative border border-paper/25 bg-cream p-6 text-ink sm:p-9"
     >
-      <span className="absolute -top-px left-0 h-[3px] w-20 bg-ember" aria-hidden="true" />
+      <span
+        className="absolute -top-px left-0 h-[3px] w-24 bg-ember"
+        aria-hidden="true"
+      />
 
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="font-display text-[1.65rem] leading-tight tracking-[-0.02em]">
+          <p className="font-mono text-[0.625rem] uppercase tracking-[0.16em] text-muted">
+            Inquiry / 01
+          </p>
+          <p className="mt-2 font-display text-[1.9rem] leading-tight tracking-[-0.025em]">
             Send an inquiry
           </p>
-          <p className="mt-1 text-[0.78rem] text-muted">
+          <p className="mt-1.5 text-[0.875rem] leading-relaxed text-muted">
             A short note is enough to begin.
           </p>
         </div>
-        <p className="pt-1 font-mono text-[0.5rem] uppercase tracking-[0.14em] text-muted">
-          All fields required
+        <p className="pt-1 text-right font-mono text-[0.625rem] uppercase leading-relaxed tracking-[0.14em] text-muted">
+          All fields
+          <br />
+          required
         </p>
       </div>
 
-      <div className="mt-7 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
         <div>
           <label className="field-label" htmlFor={fieldId("name")}>
             Name
@@ -300,8 +308,8 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[26ch] text-[0.68rem] leading-relaxed text-muted">
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="max-w-[30ch] text-[0.8125rem] leading-relaxed text-muted">
           Your details are used only to respond to this inquiry.
         </p>
         <button
@@ -357,10 +365,10 @@ export function ContactForm() {
               )}
             </span>
             <div>
-              <p className="text-[0.8rem] font-semibold leading-snug">
+              <p className="text-[0.875rem] font-semibold leading-snug">
                 {status.title}
               </p>
-              <p className="mt-1 text-[0.75rem] leading-relaxed text-slate">
+              <p className="mt-1 text-[0.8125rem] leading-relaxed text-slate">
                 {status.message}
               </p>
             </div>

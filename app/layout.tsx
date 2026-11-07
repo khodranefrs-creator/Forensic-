@@ -104,7 +104,11 @@ export default function RootLayout({
           Skip to content
         </a>
         <SiteNav />
-        <main id="content" tabIndex={-1} className="pt-20 outline-none nav:pl-[17rem] nav:pt-0">
+        <main
+          id="content"
+          tabIndex={-1}
+          className="pt-20 outline-none nav:pl-[var(--rail-width)] nav:pt-0"
+        >
           {children}
         </main>
         <SiteFooter />

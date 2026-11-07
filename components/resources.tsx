@@ -1,80 +1,104 @@
 import { ArrowUpRight, Play } from "lucide-react";
+import { ResourceArt } from "@/components/resource-art";
 import { Reveal } from "@/components/reveal";
+import { SectionMarker } from "@/components/section-marker";
 import { resourceTracks, site } from "@/lib/content";
 
+const artVariants = ["signal", "applied", "watch"] as const;
+
 export function Resources() {
+  const [feature, ...sideTracks] = resourceTracks;
+
   return (
-    <section id="resources" className="section">
+    <section id="resources" className="library section">
+      <span className="section-ghost" aria-hidden="true">
+        06
+      </span>
+
       <div className="shell">
-        <div className="grid grid-cols-1 gap-9 lg:grid-cols-12 lg:gap-8">
-          <Reveal className="lg:col-span-7">
-            <p className="label">06 / Resources</p>
-            <h2 className="display mt-6 max-w-[13ch] text-[clamp(2.5rem,1.4rem+3.3vw,4.25rem)] leading-[1.01]">
+        <Reveal>
+          <SectionMarker
+            number="06"
+            label="Resources / Library"
+            note="A growing index"
+          />
+        </Reveal>
+
+        <div className="library-head">
+          <Reveal className="library-head__title">
+            <h2 className="h-section">
               A growing <em className="text-ember-deep">knowledge base.</em>
             </h2>
           </Reveal>
-          <Reveal className="lg:col-span-4 lg:col-start-9 lg:self-end" delay={100}>
+
+          <Reveal className="library-head__note" delay={100}>
             <p className="body-copy">
-              Accessible explanations, applied perspectives, and video resources
+              Accessible explanations, applied perspectives and video resources
               for anyone who wants to understand neuroscience beyond the
               headlines.
             </p>
-            <p className="mt-4 font-mono text-[0.5625rem] uppercase leading-[1.9] tracking-[0.15em] text-muted">
+            <p className="library-head__meta">
               New material is added as it is released.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="lg:col-span-3">
-            <div className="lg:sticky lg:top-12">
-              <p className="font-display text-[2.8rem] italic leading-none text-ink/50">
-                Index
-              </p>
-              <p className="mt-5 max-w-[20ch] font-mono text-[0.5625rem] uppercase leading-[1.9] tracking-[0.15em] text-muted">
-                Three ways to keep learning. More will follow.
-              </p>
-              <a href="#contact" className="arrow-link mt-8">
-                Suggest a topic
-                <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
-              </a>
-            </div>
+        <div className="library-grid">
+          <Reveal className="library-feature">
+            <a href={feature.href} className="resource resource--feature group">
+              <div className="resource__art">
+                <ResourceArt variant={artVariants[0]} />
+                <span className="resource__art-label">Fig. 03 / Signal field</span>
+              </div>
+              <span className="resource__arrow" aria-hidden="true">
+                <ArrowUpRight size={15} strokeWidth={1.7} />
+              </span>
+
+              <div className="resource__body">
+                <div className="resource__meta">
+                  <span className="resource__num">{feature.number} / Feature</span>
+                  <span className="resource__status">{feature.status}</span>
+                </div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+                <span className="resource__cta">
+                  {feature.linkLabel}
+                  <ArrowUpRight size={13} strokeWidth={1.8} aria-hidden="true" />
+                </span>
+              </div>
+            </a>
           </Reveal>
 
-          <div className="lg:col-span-8 lg:col-start-5">
-            {resourceTracks.map((track, index) => {
+          <div className="library-side">
+            {sideTracks.map((track, index) => {
               const external = track.href.startsWith("http");
               return (
-                <Reveal key={track.title} delay={index * 70}>
+                <Reveal key={track.title} delay={80 + index * 60}>
                   <a
                     href={track.href}
                     {...(external
                       ? { target: "_blank", rel: "noreferrer noopener" }
                       : {})}
-                    className="group block border-t border-ink/20 py-7 first:border-t-0 first:pt-0 last:border-b last:pb-7"
+                    className="resource resource--side group"
                   >
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                          <span className="font-mono text-[0.5625rem] tracking-[0.12em] text-ember-deep">
-                            {track.number}
-                          </span>
-                          <span className="flex items-center gap-1.5 font-mono text-[0.5rem] uppercase tracking-[0.14em] text-muted">
-                            <span
-                              className={`size-1 rounded-full ${
-                                external ? "bg-ember" : "bg-ink/30"
-                              }`}
-                            />
+                    <div className="resource__inner">
+                      <div className="resource__art">
+                        <ResourceArt variant={artVariants[index + 1]} />
+                      </div>
+                      <div className="resource__body">
+                        <div className="resource__meta">
+                          <span className="resource__num">{track.number} / Track</span>
+                          <span
+                            className={`resource__status ${
+                              external ? "resource__status--live" : ""
+                            }`}
+                          >
                             {track.status}
                           </span>
                         </div>
-                        <h3 className="mt-3 font-display text-[clamp(1.9rem,1.5rem+1.1vw,2.55rem)] leading-[1.08] tracking-[-0.025em] transition-colors duration-300 group-hover:text-azure-deep">
-                          {track.title}
-                        </h3>
-                        <p className="mt-3 max-w-[44ch] text-[0.9rem] leading-[1.68] text-slate">
-                          {track.description}
-                        </p>
-                        <span className="mt-4 inline-flex items-center gap-2 text-[0.75rem] font-semibold text-ink">
+                        <h3>{track.title}</h3>
+                        <p>{track.description}</p>
+                        <span className="resource__cta">
                           {external && (
                             <Play
                               size={11}
@@ -86,48 +110,43 @@ export function Resources() {
                           <ArrowUpRight
                             size={12}
                             strokeWidth={1.8}
-                            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                             aria-hidden="true"
                           />
                         </span>
                       </div>
-                      <span className="mt-1 flex size-10 shrink-0 items-center justify-center border border-ink/15 transition-colors duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
-                        <ArrowUpRight
-                          size={16}
-                          strokeWidth={1.5}
-                          aria-hidden="true"
-                        />
-                      </span>
                     </div>
+                    <span className="resource__arrow" aria-hidden="true">
+                      <ArrowUpRight size={14} strokeWidth={1.7} />
+                    </span>
                   </a>
                 </Reveal>
               );
             })}
-
-            <Reveal delay={220}>
-              <p className="mt-8 max-w-[50ch] text-[0.78rem] leading-relaxed text-muted">
-                Have a question you would like to see explained? Topic suggestions
-                are welcome —{" "}
-                <a
-                  href="#contact"
-                  className="underline decoration-ember decoration-2 underline-offset-4 transition-colors hover:text-ink"
-                >
-                  get in touch
-                </a>
-                . You can also explore the full archive on the{" "}
-                <a
-                  href={site.youtube.channelUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="underline decoration-ember decoration-2 underline-offset-4 transition-colors hover:text-ink"
-                >
-                  YouTube channel
-                </a>
-                .
-              </p>
-            </Reveal>
           </div>
         </div>
+
+        <Reveal className="library-foot" delay={120}>
+          <p>
+            This is a working library. Entries appear here when they are
+            published — nothing is presented as complete before it exists.
+            Suggestions for topics are welcome.
+          </p>
+          <div className="library-foot__links">
+            <a href="#contact" className="arrow-link">
+              Suggest a topic
+              <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
+            </a>
+            <a
+              href={site.youtube.channelUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="arrow-link"
+            >
+              Full archive on YouTube
+              <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

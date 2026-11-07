@@ -1,88 +1,128 @@
 import { ArrowUpRight } from "lucide-react";
+import { Aperture } from "@/components/aperture";
+import { ClarityMark } from "@/components/clarity-mark";
+import { ProcessSignal } from "@/components/process-signal";
 import { Reveal } from "@/components/reveal";
+import { SectionMarker } from "@/components/section-marker";
 import { consultationSteps } from "@/lib/content";
+
+const scopeItems = [
+  "A scientific perspective on a defined question",
+  "Clear, proportionate language",
+  "An honest account of the limits of evidence",
+];
 
 export function Consultation() {
   return (
-    <section id="consultation" className="section">
+    <section id="consultation" className="consultation section">
+      <span className="section-ghost" aria-hidden="true">
+        05
+      </span>
+
       <div className="shell">
         <Reveal>
-          <p className="label">05 / Consultation</p>
+          <SectionMarker
+            number="05"
+            label="Consultation"
+            note="A considered method"
+          />
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
-          <Reveal className="lg:col-span-8">
-            <h2 className="display text-[clamp(2.2rem,1.15rem+3.95vw,4.6rem)] leading-[0.99]">
-              <span className="block">Scientific insight.</span>
-              <em className="block text-azure-deep">Informed perspective.</em>
+        <div className="consultation-head">
+          <Reveal className="consultation-head__title">
+            <h2 className="h-section">
+              Scientific insight.{" "}
+              <em className="text-azure-deep">Informed perspective.</em>
             </h2>
           </Reveal>
 
-          <Reveal className="lg:col-span-4 lg:col-start-9 lg:self-end" delay={100}>
+          <Reveal className="consultation-head__note" delay={100}>
             <p className="body-copy">
               Consultation is a space to examine neuroscience questions with care
-              — whether you are preparing a case, developing a program, or making
-              sense of complex scientific material.
+              — whether you are preparing a case, developing a programme, or
+              making sense of complex scientific material.
             </p>
             <p className="body-copy mt-4">
-              Each inquiry begins with understanding the question, the context, and
-              the limits of what the science can tell us.
+              Each inquiry begins with understanding the question, the context,
+              and the limits of what the science can tell us.
             </p>
           </Reveal>
         </div>
 
-        <Reveal delay={140}>
-          <div className="mt-16 border-t border-ink/20 pt-6">
-            <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-muted">
-              <span>Method / 01—03</span>
-              <span>Question → Science → Translation</span>
-            </div>
+        <div className="consultation-layout">
+          <div className="consultation-process">
+            <Reveal>
+              <div className="consultation-method-top">
+                <span>Method / 01—03</span>
+                <span>Question → Science → Translation</span>
+              </div>
 
-            <div className="mt-9 grid grid-cols-1 gap-9 sm:grid-cols-3 sm:gap-8">
-              {consultationSteps.map((step, index) => (
-                <div
-                  key={step.number}
-                  className={`relative ${
-                    index > 0
-                      ? "border-t border-line pt-7 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0"
-                      : "border-t border-line pt-7 sm:border-t-0 sm:pt-0"
-                  }`}
-                >
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-[0.5625rem] tracking-[0.12em] text-ember-deep">
-                      {step.number}
-                    </span>
-                    <h3 className="font-display text-[clamp(1.4rem,1.2rem+0.5vw,1.7rem)] leading-tight tracking-[-0.02em]">
-                      {step.title}
-                    </h3>
-                  </div>
-                  <p className="mt-3 max-w-[31ch] text-[0.875rem] leading-[1.65] text-slate sm:pr-6">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+              <ProcessSignal />
+
+              <ol className="process">
+                {consultationSteps.map((step) => (
+                  <li key={step.number} className="process__step">
+                    <span className="process__marker">{step.number}</span>
+                    <div className="process__content">
+                      <h3>{step.title}</h3>
+                      <div>
+                        <p>{step.description}</p>
+                        <span className="process__cue">
+                          <ClarityMark size={13} />
+                          {step.number === "01"
+                            ? "Context first"
+                            : step.number === "02"
+                              ? "Evidence, with limits"
+                              : "Language that can be used"}
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
           </div>
-        </Reveal>
 
-        <Reveal delay={180}>
-          <div className="mt-14 grid grid-cols-1 items-center gap-8 border-y border-line py-8 lg:grid-cols-12 lg:py-9">
-            <div className="lg:col-span-7">
-              <p className="pull-line max-w-[22ch]">
-                Scientific insight, brought to the question at hand.
+          <Reveal className="consultation-aside" delay={120}>
+            <aside className="method-plate">
+              <Aperture className="method-plate__art" />
+              <p className="method-plate__eyebrow">Scope / How we work</p>
+              <p className="method-plate__quote">
+                Considered science. Proportionate language.
               </p>
-            </div>
-            <div className="lg:col-span-5 lg:justify-self-end">
-              <a href="#contact" className="btn btn-primary w-full sm:w-auto">
-                Start a Conversation
-                <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" />
+              <p className="method-plate__copy">
+                The aim is not to overstate what neuroscience can settle. It is
+                to give the question a clearer, more honest scientific frame —
+                and to explain it in language that can actually be used.
+              </p>
+
+              <ul className="method-plate__list">
+                {scopeItems.map((item, index) => (
+                  <li key={item}>
+                    <span>0{index + 1}</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="method-plate__rule" aria-hidden="true" />
+              <a href="#contact" className="arrow-link arrow-link-ember">
+                Start a conversation
+                <ArrowUpRight size={15} strokeWidth={1.8} aria-hidden="true" />
               </a>
-              <p className="mt-3 max-w-[34ch] text-[0.72rem] leading-relaxed text-muted">
-                Consultation is scientific and educational in nature — not
-                clinical care or legal representation.
-              </p>
-            </div>
-          </div>
+            </aside>
+          </Reveal>
+        </div>
+
+        <Reveal className="consultation-scope" delay={80}>
+          <p>
+            Consultation is scientific and educational in nature — not clinical
+            care, diagnosis or legal representation.
+          </p>
+          <a href="#contact" className="arrow-link">
+            Ask about scope
+            <ArrowUpRight size={14} strokeWidth={1.8} aria-hidden="true" />
+          </a>
         </Reveal>
       </div>
     </section>
