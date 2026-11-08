@@ -102,6 +102,9 @@ export function Education() {
             <div className="learning-plate__arc">
               <EducationArc tone="light" />
             </div>
+            <p className="learning-plate__arc-note">
+              Conceptual model / signal to clarity — not measured data.
+            </p>
 
             <div className="learning-steps">
               {learningArc.map((step, index) => (

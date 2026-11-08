@@ -22,8 +22,11 @@ export function Hero() {
 
       <div className="shell hero-inner">
         <div className="hero-top hero-enter">
-          <p className="eyebrow">
-            Neuroscience / Forensic science / Education
+          <p className="hero-ident">
+            <span className="hero-ident__name">The Forensic Neuroscientist</span>
+            <span className="hero-ident__role">
+              Neuroscience education, training &amp; consultation
+            </span>
           </p>
           <p className="hero-top-note">
             <span>Science, translated for practice</span>
@@ -80,9 +83,9 @@ export function Hero() {
               style={{ "--enter-delay": "560ms" } as React.CSSProperties}
             >
               <p className="hero-lede body-copy">
-                Bridging neuroscience, forensic science and professional
-                education through specialised training, thoughtful consultation
-                and accessible scientific insight.
+                Education, training and consultation where neuroscience meets
+                forensic science and the law — making complex evidence clearer
+                for the people who work with it.
               </p>
 
               <div className="hero-actions">

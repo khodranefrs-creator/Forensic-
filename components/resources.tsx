@@ -33,12 +33,11 @@ export function Resources() {
 
           <Reveal className="library-head__note" delay={100}>
             <p className="body-copy">
-              Accessible explanations, applied perspectives and video resources
-              for anyone who wants to understand neuroscience beyond the
-              headlines.
+              An honest index of what exists: conversations on YouTube, and
+              written tracks that are still in development.
             </p>
             <p className="library-head__meta">
-              New material is added as it is released.
+              Entries appear when they are published.
             </p>
           </Reveal>
         </div>

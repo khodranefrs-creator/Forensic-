@@ -698,7 +698,7 @@ section {
 }
 
 .hero-strip__item .strip-num {
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   color: var(--color-muted);
 }
 
@@ -1114,16 +1114,16 @@ section {
     align-items: start;
   }
 
-  .principle:nth-child(1) {
+  .principle-stack .principle:nth-child(1) {
     grid-column: 1 / span 4;
   }
 
-  .principle:nth-child(2) {
+  .principle-stack .principle:nth-child(2) {
     grid-column: 6 / span 3;
     margin-top: 3.5rem;
   }
 
-  .principle:nth-child(3) {
+  .principle-stack .principle:nth-child(3) {
     grid-column: 10 / -1;
     margin-top: 7rem;
   }
@@ -1353,7 +1353,7 @@ section {
 
 .expertise-tile__tag {
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -1967,7 +1967,7 @@ section {
 
 .film-copy__item span {
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.12em;
   color: var(--color-ember-deep);
 }
@@ -2138,7 +2138,7 @@ section {
     display: block;
     writing-mode: vertical-rl;
     font-family: var(--font-mono);
-    font-size: 0.5625rem;
+    font-size: 0.625rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-muted);
@@ -2293,7 +2293,7 @@ section {
   align-items: center;
   gap: 0.45rem;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -2759,7 +2759,7 @@ select.field-input {
 
 .footer-bar__mark {
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -3112,6 +3112,31 @@ body {
   border-bottom: 1px solid var(--color-line);
 }
 
+.hero-ident {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1rem;
+  min-width: 0;
+}
+
+.hero-ident__name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.hero-ident__role {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 .hero-top-note {
   display: none;
   align-items: center;
@@ -3190,9 +3215,35 @@ body {
   }
 }
 
-@media (min-width: 75rem) and (max-height: 820px) {
+@media (min-width: 64rem) and (max-height: 820px) {
+  /* Short laptop screens: keep the whole first screen inside the viewport. */
+  .hero {
+    padding-bottom: 0.5625rem;
+  }
+
   .hero-title {
-    font-size: clamp(3.4rem, 5.05vw, 5.4rem);
+    font-size: clamp(3.1rem, 4.7vw, 5rem);
+  }
+
+  .hero-grid {
+    margin-top: 0.625rem;
+  }
+
+  .hero-baseline {
+    margin-top: 1.3rem;
+  }
+
+  .hero-lede {
+    font-size: 1.0625rem;
+    line-height: 1.56;
+  }
+
+  .hero-actions {
+    margin-top: 1.15rem;
+  }
+
+  .hero-strip__item {
+    padding-block: 0.8rem;
   }
 }
 
@@ -3502,8 +3553,8 @@ body {
   }
 }
 
-/* On stacked hero layouts the instrument sits directly under the headline,
-   so the first mobile viewport carries both type and artwork. */
+/* On stacked hero layouts the type, offer and primary action come first, then
+   the instrument. This keeps the purpose and CTA inside the first viewport. */
 @media (max-width: 63.99rem) {
   .hero-copy {
     display: contents;
@@ -3520,14 +3571,14 @@ body {
     order: 1;
   }
 
-  .hero-art {
+  .hero-baseline {
     order: 2;
-    margin-top: 0.15rem;
+    margin-top: 0;
   }
 
-  .hero-baseline {
+  .hero-art {
     order: 3;
-    margin-top: 0;
+    margin-top: 0.15rem;
   }
 }
 
@@ -3663,7 +3714,7 @@ body {
 }
 
 .clarity-band__inner {
-  padding-block: clamp(2.75rem, 5.5vw, 5rem);
+  padding-block: clamp(2.75rem, 5.5vw, 5rem) clamp(1.5rem, 2.6vw, 2.25rem);
 }
 
 .clarity-band__intro {
@@ -3715,73 +3766,94 @@ body {
   color: var(--color-slate);
 }
 
-.about-principles {
-  margin-top: clamp(3.25rem, 6vw, 5rem);
+/* The principles sit inside the clarity band as its closing ledger, so About
+   reads as one composition rather than a separate row of cards. */
+.clarity-ledger {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: clamp(1.5rem, 2.6vw, 2.25rem) clamp(2.25rem, 4vw, 3.25rem);
+  border-top: 1px solid rgba(7, 33, 46, 0.2);
 }
 
-.about-principles__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid var(--color-ink);
+.clarity-ledger__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ember-deep);
 }
 
-.about-principles__head > p:last-child {
-  max-width: 34ch;
+.clarity-ledger__note {
+  max-width: 26ch;
+  margin-top: 0.7rem;
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--color-muted);
 }
 
-.principle-grid {
+.clarity-ledger__items {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 2rem;
-  margin-top: 2.25rem;
+  gap: 1.4rem;
 }
 
-@media (min-width: 48rem) {
-  .principle-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.25rem;
-  }
+.ledger-item {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(7, 33, 46, 0.16);
 }
 
-.principle {
-  border-top: 1px solid var(--color-line);
-  padding-top: 1.15rem;
-  margin-top: 0;
-}
-
-.principle__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.principle__glyph {
-  color: var(--color-azure-deep);
-}
-
-.principle__num {
-  font-size: 0.6875rem;
+.ledger-item__num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.13em;
   color: var(--color-ember-deep);
 }
 
-.principle h3 {
-  margin-top: 1.6rem;
-  font-size: clamp(1.45rem, 1.2rem + 0.5vw, 1.7rem);
-  line-height: 1.14;
+.ledger-item h3 {
+  margin-top: 0.55rem;
+  font-size: clamp(1.2rem, 1.05rem + 0.35vw, 1.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
-.principle p {
-  margin-top: 0.65rem;
-  font-size: 0.9375rem;
-  line-height: 1.68;
+.ledger-item p {
+  max-width: 34ch;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.62;
+  color: var(--color-slate);
+}
+
+@media (min-width: 64rem) {
+  .clarity-ledger {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .clarity-ledger__items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .ledger-item {
+    padding: 0.2rem 1.5rem 0;
+    border-top: 0;
+    border-left: 1px solid rgba(7, 33, 46, 0.16);
+  }
+
+  .ledger-item:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .ledger-item h3 {
+    margin-top: 0.7rem;
+  }
 }
 
 /* ---------- Expertise atlas ---------- */
@@ -3834,11 +3906,40 @@ body {
   }
 }
 
+.atlas-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+  padding-bottom: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.atlas-legend__index {
+  color: var(--color-ember-deep);
+}
+
+.atlas-legend__line {
+  width: clamp(2rem, 6vw, 5rem);
+  height: 1px;
+  background: rgba(7, 33, 46, 0.22);
+}
+
+.atlas-legend__note {
+  color: var(--color-slate);
+}
+
 .expertise-atlas {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1px;
-  margin-top: clamp(2.5rem, 4.5vw, 3.75rem);
+  margin-top: 0;
   border: 1px solid var(--color-line);
   background: var(--color-line);
 }
@@ -4087,6 +4188,27 @@ body {
   transform: translateY(-5px) scale(1.03);
 }
 
+/* From desktop up, every secondary tile places its glyph on the same plate
+   position, so the six areas read as one classification system. */
+@media (min-width: 64rem) {
+  .atlas-cell:not(.atlas-cell--1) .atlas-tile__art {
+    position: absolute;
+    top: 3.4rem;
+    right: -0.9rem;
+    bottom: auto;
+    left: auto;
+    width: 68%;
+    margin: 0;
+    opacity: 0.52;
+  }
+
+  .atlas-cell--2 .atlas-tile__art,
+  .atlas-cell--3 .atlas-tile__art {
+    width: 82%;
+    right: -1.2rem;
+  }
+}
+
 .atlas-tile__body {
   position: relative;
   z-index: 2;
@@ -4257,6 +4379,7 @@ body {
 
 .learning-plate__head,
 .learning-plate__arc,
+.learning-plate__arc-note,
 .learning-steps {
   position: relative;
   z-index: 1;
@@ -4299,6 +4422,16 @@ body {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.learning-plate__arc-note {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 .learning-steps {
@@ -4581,6 +4714,30 @@ body {
 
 .film-screen {
   aspect-ratio: 16 / 9;
+  background: #051a24;
+}
+
+/* The supplied still is the genuine YouTube thumbnail. A restrained,
+   near-monochrome grade and a cool editorial scrim bring it into the site's
+   palette without inventing a different image or cropping out its content. */
+.film-screen img {
+  filter: grayscale(0.94) contrast(1.1) brightness(0.8);
+}
+
+.film-screen:hover img {
+  transform: scale(1.018);
+  filter: grayscale(0.55) contrast(1.06) brightness(0.88);
+}
+
+.film-veil {
+  background:
+    linear-gradient(to top, rgba(6, 28, 39, 0.9), rgba(6, 28, 39, 0.12) 58%),
+    linear-gradient(
+      115deg,
+      rgba(36, 177, 250, 0.24),
+      rgba(7, 33, 46, 0.1) 46%,
+      transparent 72%
+    );
 }
 
 .film-caption {
@@ -4757,7 +4914,7 @@ body {
 
 .film-rail__item > span {
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   color: var(--color-ember);
   padding-top: 0.2rem;
@@ -4805,7 +4962,7 @@ body {
 .film-channel__label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(247, 243, 234, 0.6);
@@ -4874,7 +5031,7 @@ body {
   gap: 0.4rem;
   margin-top: 0.85rem;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-azure-deep);
@@ -4908,7 +5065,7 @@ body {
 .method-plate__list li > span {
   padding-top: 0.15rem;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   color: var(--color-ember);
 }
@@ -4985,7 +5142,7 @@ body {
   bottom: 1rem;
   z-index: 2;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(247, 243, 234, 0.56);
@@ -5070,7 +5227,7 @@ body {
 .contact-next li > span {
   padding-top: 0.15rem;
   font-family: var(--font-mono);
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   color: var(--color-ember);
 }
@@ -5202,5 +5359,33 @@ body {
   .film-play::before,
   .resource__arrow {
     transition: none;
+  }
+}
+
+/* ---------- Final legibility pass ----------
+   Editorial micro-type stays small, but sentences and functional labels get
+   one step up so they remain readable at laptop and phone sizes. */
+
+.atlas-legend,
+.learning-plate__arc-note,
+.method-plate__eyebrow,
+.film-badge,
+.film-screen__caption .film-index,
+.film-channel__label,
+.resource__art-label,
+.contact-checklist__label,
+.library-head__meta,
+.footer-bar__mark,
+.footer-back {
+  font-size: 0.6875rem;
+}
+
+/* Compact desktop strip: tighten the item rhythm just enough that every field
+   stays on one line between 1024px and 1344px. */
+@media (min-width: 64rem) and (max-width: 84rem) {
+  .hero-strip__item {
+    padding-inline: 0.5rem;
+    letter-spacing: 0.08em;
+    gap: 0.4rem;
   }
 }

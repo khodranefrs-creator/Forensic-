@@ -50,6 +50,14 @@ export function Expertise() {
           </Reveal>
         </div>
 
+        <Reveal className="atlas-legend" delay={60}>
+          <span className="atlas-legend__index">Atlas / 01—06</span>
+          <span className="atlas-legend__line" aria-hidden="true" />
+          <span className="atlas-legend__note">
+            Six areas of focus in one connected field of practice
+          </span>
+        </Reveal>
+
         <div className="expertise-atlas">
           {expertiseAreas.map((area, index) => (
             <Reveal

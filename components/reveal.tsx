@@ -15,28 +15,70 @@ export function Reveal({ children, className = "", delay = 0 }: RevealProps) {
     const node = ref.current;
     if (!node) return;
 
+    const show = () => node.classList.add("is-visible");
+
     if (
       typeof IntersectionObserver === "undefined" ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
-      node.classList.add("is-visible");
+      show();
       return;
     }
 
-    const observer = new IntersectionObserver(
+    // Anything already in (or just outside) the viewport is revealed on mount.
+    // This keeps content honest for fast programmatic scrolls and full-page
+    // captures, where IntersectionObserver callbacks can lag behind the paint.
+    const nearViewport = () => {
+      const rect = node.getBoundingClientRect();
+      return (
+        rect.top < window.innerHeight * 1.05 &&
+        rect.bottom > -window.innerHeight * 0.25
+      );
+    };
+
+    if (nearViewport()) {
+      const frame = window.requestAnimationFrame(show);
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    let observer: IntersectionObserver | null = null;
+    let ticking = false;
+
+    const stop = () => {
+      observer?.disconnect();
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+
+    function check() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        ticking = false;
+        if (nearViewport()) {
+          show();
+          stop();
+        }
+      });
+    }
+
+    observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            node.classList.add("is-visible");
-            observer.unobserve(node);
+            show();
+            stop();
           }
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check, { passive: true });
+
+    return stop;
   }, []);
 
   return (
